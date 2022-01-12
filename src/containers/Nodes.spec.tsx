@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { create } from "react-test-renderer";
 import ConnectedNodes from "./Nodes";
 import Node from "../components/Node";
+import Block from "../components/Block";
 import { checkNodesStatus } from "../reducers/nodes";
 
 describe("<Nodes />", () => {
@@ -16,12 +17,20 @@ describe("<Nodes />", () => {
         online: false,
         name: "Node 1",
         loading: false,
+        blocks: [
+          { index: 1, data: "Matheus" },
+          { index: 2, data: "Vieira" },
+        ],
       },
       {
         url: "https://secret-lowlands-62331.herokuapp.com",
         online: false,
         name: "Node 2",
         loading: false,
+        blocks: [
+          { index: 1, data: "Cristiane" },
+          { index: 2, data: "Marques" },
+        ],
       },
     ],
   };
@@ -54,6 +63,12 @@ describe("<Nodes />", () => {
         }),
       ])
     );
+  });
+
+  it("should contain <Block />", () => {
+    const wrapper = mount(setup());
+
+    expect(wrapper.find(Block).length).toEqual(4);
   });
 
   it("should match snapshot", () => {

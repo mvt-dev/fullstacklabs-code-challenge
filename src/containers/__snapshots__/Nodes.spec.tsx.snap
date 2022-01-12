@@ -110,11 +110,34 @@ exports[`<Nodes /> should match snapshot 1`] = `
             <div
               className="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
             >
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              <div
+                className="MuiBox-root css-118i4zs"
               >
-                Blocks go here
-              </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-88bfar-MuiTypography-root"
+                >
+                  001
+                </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-16bzxyv-MuiTypography-root"
+                >
+                  Matheus
+                </p>
+              </div>
+              <div
+                className="MuiBox-root css-118i4zs"
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-88bfar-MuiTypography-root"
+                >
+                  002
+                </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-16bzxyv-MuiTypography-root"
+                >
+                  Vieira
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -214,11 +237,34 @@ exports[`<Nodes /> should match snapshot 1`] = `
             <div
               className="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
             >
-              <p
-                className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+              <div
+                className="MuiBox-root css-118i4zs"
               >
-                Blocks go here
-              </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-88bfar-MuiTypography-root"
+                >
+                  001
+                </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-16bzxyv-MuiTypography-root"
+                >
+                  Cristiane
+                </p>
+              </div>
+              <div
+                className="MuiBox-root css-118i4zs"
+              >
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-88bfar-MuiTypography-root"
+                >
+                  002
+                </p>
+                <p
+                  className="MuiTypography-root MuiTypography-body1 css-16bzxyv-MuiTypography-root"
+                >
+                  Marques
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import mockFetch from "cross-fetch";
-import reducer, { checkNodeStatus } from "./nodes";
+import reducer, { checkNodeStatus, getNodeBlocks } from "./nodes";
 import { Node } from "../types/Node";
 import initialState from "./initialState";
 
@@ -102,6 +102,34 @@ describe("Reducers::Nodes", () => {
 
     expect(reducer(appState, action)).toEqual(expected);
   });
+
+  it("should handle getNodeBlocks.fulfilled", () => {
+    const appState = {
+      list: [nodeA, nodeB],
+    };
+    const action = {
+      type: getNodeBlocks.fulfilled,
+      meta: { arg: nodeA },
+      payload: [
+        { attributes: { index: 1, data: "Matheus" }},
+        { attributes: { index: 2, data: "Vieira" }},
+      ],
+    };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          blocks: [
+            { index: 1, data: "Matheus" },
+            { index: 2, data: "Vieira" },
+          ]
+        },
+        nodeB,
+      ],
+    };
+  
+    expect(reducer(appState, action)).toEqual(expected);
+  });
 });
 
 describe("Actions::Nodes", () => {
@@ -159,6 +187,37 @@ describe("Actions::Nodes", () => {
       }),
     ]);
 
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should fetch the node blocks", async () => {
+    mockedFech.mockReturnValueOnce(
+      Promise.resolve({
+        status: 200,
+        json() {
+          return Promise.resolve({ data: [
+            { attributes: { index: 1, data: "Matheus" }},
+            { attributes: { index: 2, data: "Vieira" }},
+          ]});
+        },
+      })
+    );
+    await getNodeBlocks(node)(dispatch, () => {}, {});
+
+    const expected = expect.arrayContaining([
+      expect.objectContaining({
+        type: getNodeBlocks.pending.type,
+        meta: expect.objectContaining({ arg: node }),
+      }),
+      expect.objectContaining({
+        type: getNodeBlocks.fulfilled.type,
+        meta: expect.objectContaining({ arg: node }),
+        payload: [
+          { attributes: { index: 1, data: "Matheus" }},
+          { attributes: { index: 2, data: "Vieira" }},
+        ],
+      }),
+    ]);
     expect(dispatch.mock.calls.flat()).toEqual(expected);
   });
 });

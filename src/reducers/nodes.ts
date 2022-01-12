@@ -17,12 +17,22 @@ export const checkNodeStatus = createAsyncThunk(
   }
 );
 
+export const getNodeBlocks = createAsyncThunk(
+  "nodes/getNodeBlocks",
+  async (node: Node) => {
+    const response = await fetch(`${node.url}/api/v1/blocks`);
+    const { data } = await response.json();
+    return data || [];
+  }
+);
+
 export const checkNodesStatus = createAsyncThunk(
   "nodes/checkNodesStatus",
   async (nodes: Node[], thunkAPI) => {
     const { dispatch } = thunkAPI;
     nodes.forEach((node) => {
       dispatch(checkNodeStatus(node));
+      dispatch(getNodeBlocks(node));
     });
   }
 );
@@ -49,6 +59,12 @@ export const nodesSlice = createSlice({
       if (node) {
         node.online = false;
         node.loading = false;
+      }
+    });
+    builder.addCase(getNodeBlocks.fulfilled, (state, action) => {
+      const node = state.list.find((n) => n.url === action.meta.arg.url);
+      if (node) {
+        node.blocks = action.payload.map((x: { attributes: { index: number, data: string }}) => ({ index: x.attributes.index, data: x.attributes.data }))
       }
     });
   },
